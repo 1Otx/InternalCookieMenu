@@ -1,0 +1,85 @@
+(function () {
+    if (document.getElementById("ccModMenu")) return;
+
+    const menu = document.createElement("div");
+    menu.id = "ccModMenu";
+
+    menu.innerHTML = `
+        <div id="ccHeader">Add Cookies</div>
+
+        <input id="cookieAmount" type="number" placeholder="Cookie amount">
+
+        <button id="addCookies">Add Cookies</button>
+    `;
+
+    Object.assign(menu.style, {
+        position: "fixed",
+        top: "20px",
+        right: "20px",
+        width: "260px",
+        background: "#111",
+        border: "2px solid #ff9800",
+        borderRadius: "16px",
+        padding: "16px",
+        zIndex: "999999",
+        boxShadow: "0 0 20px rgba(0,0,0,0.6)",
+        color: "white",
+        fontFamily: "Arial"
+    });
+
+    document.body.appendChild(menu);
+
+    const style = document.createElement("style");
+    style.innerHTML = `
+        #ccHeader{
+            font-size:22px;
+            font-weight:bold;
+            margin-bottom:14px;
+            color:#ff9800;
+            text-align:center;
+        }
+
+        #cookieAmount{
+            width:100%;
+            padding:12px;
+            border:none;
+            border-radius:10px;
+            background:#1d1d1d;
+            color:white;
+            margin-bottom:12px;
+            font-size:16px;
+            box-sizing:border-box;
+        }
+
+        #addCookies{
+            width:100%;
+            padding:12px;
+            border:none;
+            border-radius:10px;
+            background:#ff9800;
+            color:white;
+            font-size:16px;
+            font-weight:bold;
+            cursor:pointer;
+        }
+
+        #addCookies:hover{
+            opacity:0.9;
+        }
+    `;
+
+    document.head.appendChild(style);
+
+    document.getElementById("addCookies").onclick = () => {
+        const amount = Number(document.getElementById("cookieAmount").value);
+
+        if (!amount || amount <= 0) {
+            alert("Enter a valid amount");
+            return;
+        }
+
+        Game.cookies += amount;
+        Game.cookiesEarned += amount;
+        Game.Draw();
+    };
+})();
